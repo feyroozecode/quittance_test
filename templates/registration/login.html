@@ -1,0 +1,78 @@
+{% extends 'quitance_base_site.html' %}
+{% load static %}
+
+
+{% block extra_style %}
+<style>
+ 
+.errornote {
+  font-size: 12px;
+  text-align: center;
+  color: red;
+}
+
+.card{
+  position: absolute;
+}
+
+.login_btn{
+  background: green;
+    color: white;
+}
+
+.login_btn:hover{
+  background: green;
+    color: white;
+}
+</style>
+{% endblock %}
+
+{% block content %} 
+{{ block.super }}
+    <div class="d-flex justify-content-center h-100" style="width: 100%; background-color: #f2eecf; border-color: rgba(0,0,0,0.2); padding: 0 5px; min-height: 700px">
+      <div class="card m-3 mt-5" style="    width: 400px;">
+        <div class="p-3">
+        <div class="row">
+            <div class="col-md-12">
+              <form method="POST">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                  <input type="text" name="username" class="form-control input_user" required placeholder="Login">
+                </div>
+                <div class="input-group mb-2">
+                  <input type="password" name="password" class="form-control input_pass" required placeholder="Password">
+                </div>
+                <br>
+                {% if form.non_field_errors %}
+            <div class="col-md-12 mb-3 errornote">
+              {% for error in form.non_field_errors %}
+              <div>
+                  <b>{{ error }}</b>
+              </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+                <div class="d-flex justify-content-center mt-3 login_container">
+                  <button type="submit" name="button" class="btn btn-success px-5 my-3">Se connecter</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+          
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+  $(document).ready(function() {
+
+    $("#loading").hide();
+    $("#page_block").show();
+
+  });
+</script>
+{% endblock extra_js %}

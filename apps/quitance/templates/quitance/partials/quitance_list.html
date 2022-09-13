@@ -1,0 +1,22 @@
+<table class="table table-sm">
+    <thead>
+        <tr>
+            <th style="width:15%;">Nº</th>
+            <th>Partie Versante</th>
+            <th>Nature</th>
+            <th class="text-right" style="width:10%">Montant</th>
+            <th class="text-center" style="width:20%">Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for quitance in last_quitances %}
+            <tr>
+                <td>{{quitance.get_numero}}</td>
+                <td>{{quitance.nom_prenom}}</td>
+                <td>{{quitance.nature}}</td>
+                <td class="text-right">{{quitance.montant}}</td>
+                <td class="text-center">{{quitance.created_at|date:'d/m/y à h:m:s'}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

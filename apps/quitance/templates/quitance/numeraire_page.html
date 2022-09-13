@@ -1,0 +1,287 @@
+{% extends 'quitance_base_site.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load django_htmx %}
+
+
+{% block extra_style %}
+<style>
+    .justify-content-between {
+        -webkit-box-pack: justify!important;
+        justify-content: space-evenly!important;
+    }
+
+    .top-menu .nav-item{
+        text-align: center;
+        width: 200px;
+        padding: 9px 0px;
+        margin: 0;
+    }
+
+    .top-menu .nav-item .fas{
+        font-size: 25px;
+    }
+
+    
+
+    li.nav-item {
+        font-family: cursive;
+        font-size: 15px !important;
+    }
+
+    li.nav-item.active {
+        background: #f2eecf;
+        font-weight: bolder;
+    }
+    .btn-outline-primary {
+        color: #f77310f2 !important;
+        border-color: #8e3f03 !important;
+    }
+
+    primary:not(:disabled):not(.disabled).active, .btn-outline-primary:not(:disabled):not(.disabled):active, .show>.btn-outline-primary.dropdown-toggle {
+        color: #ffffff;
+        background-color: #f36a04;
+        border-color: #8e3f03;
+    }
+
+    .btn-outline-primary:not(:disabled):not(.disabled).active, .btn-outline-primary:not(:disabled):not(.disabled):active, .show>.btn-outline-primary.dropdown-toggle {
+        color: #ffffff !important;
+        background-color: #f36a04 !important;
+        border-color: #8e3f03 !important;
+    }
+    .btn-outline-primary:not(:disabled):not(.disabled).active:focus, .btn-outline-primary:not(:disabled):not(.disabled):active:focus, .show>.btn-outline-primary.dropdown-toggle:focus {
+        box-shadow: 0 0 0 0 rgb(252, 191, 161) !important;
+    }
+    .btn-outline-primary:hover {
+        color: #f36a04 !important;
+        background-color: #f1bf9a !important;
+    }
+    .form-floating label.error {
+        position: relative;
+        color: red;
+        padding: 0;
+        line-height: 13px;
+        margin: 0;
+        top: unset;
+        right: unset;
+        display: block !important;
+        font-size: 11px;
+    }
+
+    .form-floating>.form-control:focus~label.error, .form-floating>.form-control:not(:placeholder-shown)~label.error, .form-floating>.form-select~label.error {
+        opacity: .65;
+        -webkit-transform: none;
+        -ms-transform: none;
+        transform: none;
+    }
+    
+</style>
+{% endblock %}
+
+{% block content %}
+  {{ block.super }}
+    
+  {% include 'quitance/includes/menu_quitance.html' with selected_op='numeraire' %}
+
+    <div class="justify-content-center h-100 pt-3" style="width: 100%; background-color: #f2eecf; border-color: rgba(0,0,0,0.2); padding: 0 5px; min-height: 700px">
+  
+
+            <div class="card  m-2">
+                <div class="row justify-content-center mt-3 mb-2">
+                    <div class="col-auto">
+                        <nav class="nav btn-group" id="typenav">
+                            <a href="#tiers" class="btn btn-outline-primary active" data-toggle="tab">Versement Tiers </a>
+                            <a href="#receveurs" class="btn btn-outline-primary" data-toggle="tab">Versement Receveurs</a>
+                        </nav>  
+                    </div>
+                    
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane fade active show" id="tiers" role="tabpanel">
+                        <div>
+                            <div class="theme-wizard mt-3">
+                                <div class="" id="rootwizard">
+                                    <div class="px-sm-3 px-md-5" id="bootstrap-wizard-tab1">
+                                        <div class="row">
+
+                                            <div class="col-md-12 col-xl-12">
+                                                <form id="QuitanceForm" class="pform form-horizontal">
+                                                    {% crispy quitance_form %}
+                                                </form>
+                                            </div>
+                                           
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="receveurs" role="tabpanel">
+                        {% include 'quitance/includes/versement_receveur.html' %}
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="card  m-2">
+        <div class="card-body">
+            <a  href="{% url 'etat_journalier' %}?type=tiers" class="btn btn-primary btn-print px-5 my-3 mx-3 right">Situation journalière</a>
+            <div id="tableauQuitance" hx-get="{% url 'ajax_htmx' %}?last_quitances=tiers" hx-trigger="load">
+                <img  alt="Result loading..." class="htmx-indicator" width="150" src="/img/bars.svg"/>
+            </div>
+            {% comment %} <input type="text" name="search_versante"
+                hx-get="{% url 'ajax_htmx' %}"
+                hx-trigger="keyup changed delay:500ms"
+                hx-target="#search-results"
+                placeholder="Search..."
+            >
+            <div id="search-results"></div> {% endcomment %}
+            
+            
+        </div>
+    </div>
+    {% include 'quitance/includes/partie_versante_modal.html' with selected_op='cheque' %}
+    
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+    
+  $(document).ready(function() {
+
+    var quitanceForm = $("#QuitanceForm");
+
+    $('#div_id_num_cheque').parent().hide();
+    $('#div_id_banque').parent().hide();
+    $('#div_id_date_cheque').parent().hide();
+    $('#div_id_titulaire').parent().hide();
+
+    setTimeout(
+        function(){
+        $('#div_id_versante').html("<select class='form-select' id='id_versante' name='versante' class='form-control'></select><label for='id_versante' > NIF/MATRICULE</label>") 
+        $('#select2-id_versante-container').html('')
+        $('#div_id_versante').append('<a data-toggle="modal" data-target="#sizedModalLg"><span class="fas fa-plus-circle" style="position: absolute;top: 0.8rem;right: -0.4rem;"></span></a>')
+    }, 50)
+
+    $("#loading").hide();
+    $("#page_block").show();
+
+    $("#typenav a").on("click", function(ev){
+        if(ev.target.hash == '#tiers'){
+            htmx.ajax('GET', '{% url 'ajax_htmx' %}?last_quitances=tiers', {target:'#tableauQuitance'})
+        }
+
+        if(ev.target.hash == '#receveurs'){
+            htmx.ajax('GET', '{% url 'ajax_htmx' %}?last_quitances=bdrs', {target:'#tableauQuitance'})
+        }
+    })
+
+
+    $("#id_nom_prenom").on("keyup", function(ev){
+        $("#id_nom_partie_versante").val(ev.target.value)
+    })
+
+    jQuery.validator.setDefaults({
+        debug: true,
+        success: "valid"
+    });
+
+    quitanceForm.validate({
+        rules: {
+            montant: {
+                required: true,
+            },
+            nature: {
+                required: true
+            },
+            nom_prenom: {
+                required: true
+            },
+        },
+        submitHandler: function (form) {
+            
+            console.log("yessssssssss")
+        }
+    });
+
+    quitanceForm.on("submit", function(e){
+            // prevent from normal form behaviour
+
+            e.preventDefault();
+            
+    
+            // serialize the form data  
+            if(quitanceForm.valid()){
+                
+                $("#loading").show();
+                var serializedData = $(this).serialize();
+                
+                console.log(serializedData);
+                
+                $("input, select").attr("disabled", true);
+
+                $.ajax({
+                    type : 'POST',
+                    url :  "{% url 'op_numeraires' %}",
+                    data : serializedData,
+                    success : function(response){
+                        $("#id_versante").html('');
+                        $('#QuitanceForm')[0].reset();
+
+                        var newWin = window.open("print_quitance/"+response.data.id,'printWindow','Toolbar=0,Location=0,Directories=0,Status=0,Menubar=0,Scrollbars=0,Resizable=0,width=740,height=400');
+            
+                        newWin.document.body.onload = function() { 
+                            if(newWin.closeWin == 'True'){
+                                newWin.close();
+                                htmx.ajax('GET', '{% url 'ajax_htmx' %}?last_quitances=tiers', {target:'#tableauQuitance'})
+                            }else{
+                                newWin.print(); 
+                                newWin.onafterprint = function(){
+                                    newWin.close();
+                                    htmx.ajax('GET', '{% url 'ajax_htmx' %}?last_quitances=tiers', {target:'#tableauQuitance'})
+                                }
+                            }
+                            
+                        }
+                        $("input, select").attr("disabled", false)
+                        $("#loading").hide();
+                        console.log("donnnnnnnne 1")
+                        
+                    },
+                    error : function(response){
+                        $("input, select").attr("disabled", false)
+                        $("#loading").hide();
+                        console.log(response.responseJSON);
+                        var obj = response.responseJSON["form"];
+                        Object.keys(obj).forEach((key) => {
+                            err = obj[key]
+                            var index = 1
+                            console.log($("#id_"+key).parent())
+                            err.forEach((item) => {
+                                console.log(key, index, '<span id="id_'+key+'-error" class="invalid-feedback">'+item+'</span>')
+
+                                $("#id_"+key).addClass("is-invalid")
+
+                                if($("#id_"+key+"-error").length > 0){
+                                    $("#id_"+key+"-error")[0].outerHTML = "";
+                                }
+                    
+                                if($("#id_"+index+key+"-error").length > 0){
+                                    $("#id_"+index+key+"-error").outerHTML('<label id="id_'+index+key+'-error" for="'+key+'-error" class="error invalid-feedback">'+item+'</label>')
+                                }else{
+                                    $("#id_"+key).parent().append('<label id="id_'+key+'-error" for="'+key+'-error" class="error invalid-feedback">'+item+'</label>')
+                                }
+                                index++
+                            })
+                            
+                        });
+                    }
+                });
+            }
+    });
+
+  });
+</script>
+{% endblock extra_js %}

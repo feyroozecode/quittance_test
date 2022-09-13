@@ -1,0 +1,201 @@
+{% load i18n static %}
+
+{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Responsive Bootstrap 4 Admin &amp; Dashboard Template">
+	<link href="{% static 'sitefnt/images/favicon.png' %}" rel="shortcut icon" type="image/png">
+	<meta name="author" content="Bootlab">
+
+	<title>EQUITANCE - TRESOR</title>
+
+
+	<!-- PICK ONE OF THE STYLES BELOW -->
+	<link href="{% static "default_theme/css/custum_style.css" %}" rel="stylesheet">
+	<link href="{% static "default_theme/css/classic.css" %}" rel="stylesheet">
+	<link href="{% static "default_theme/plugins/select2/css/select2.min.css" %}" rel="stylesheet" />
+	<link href="{% static "default_theme/plugins/jBreadCrumb/css/BreadCrumb.css" %}" rel="stylesheet" />
+	<link href="{% static "default_theme/plugins/datatable/jquery.dataTables.min.css" %}" rel="stylesheet" />
+	
+	{% block extra_style %}
+		
+	{% endblock extra_style %}
+
+	<!-- BEGIN SETTINGS -->
+	<!-- You can remove this after picking a style -->
+	<style>
+		body {
+			opacity: 0;
+		}
+
+		.content {
+			padding: 0.5rem 1.5rem 0.5rem;
+		}
+
+		.btn-print{
+			background: #dee2e6 !important;
+			color: black !important;
+			border-color: #748194 !important;
+		}
+	</style>
+	<!-- END SETTINGS -->
+</head>
+
+<body>
+	
+	<div class="wrapper">
+		{% block sidebar %}
+			<nav id="sidebar" class="sidebar sidebar-sticky">
+				<div class="sidebar-content ">
+					<a class="sidebar-brand" href="{% url 'index' %}" style="text-align: center; background: white; margin: 10px; border-radius: 10%">
+						{% comment %} <i class="align-middle" data-feather="box"></i> {% endcomment %}
+						<img src="{% static 'default_theme/images/logo.jpg' %}" alt="" style="width: 130px;height: 140px;">
+						<br>
+						<span class="align-middle" style="font-size: 14px; color: black">EQUITANCE - TRESOR</span>
+					</a>
+
+				</div>
+			</nav>
+		{% endblock sidebar %}
+		
+
+		<div class="main">
+			{% block navbar %}
+				<nav class="navbar navbar-expand navbar-light bg-white">
+				{% block toggle_nav %}
+					<a class="sidebar-toggle d-flex mr-2">
+						<i class="hamburger align-self-center"></i>
+					</a>
+				{% endblock toggle_nav %}
+
+				{% block search_input %}
+					<form class="form-inline d-none d-sm-inline-block">
+						<input class="form-control form-control-no-border mr-sm-2" type="text" placeholder="Search projects..." aria-label="Search">
+					</form>
+				{% endblock search_input %}
+
+				{% block right_menu %}
+					<div class="navbar-collapse collapse">
+						<ul class="navbar-nav ml-auto">
+							<li class="nav-item dropdown">
+								<a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-toggle="dropdown">
+									<i class="align-middle" data-feather="settings"></i>
+								</a>
+
+								<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-toggle="dropdown">
+									<span class="text-dark float-left text-right">
+									{{request.user.membre.nomprenom}} <br>
+									<span class="m-2">{{request.user.membre.membrestructure.structure}} </span>
+									</span>
+									 {% if request.user.membre.photo %}
+										<img id="avatar" alt="avatar" src="/media/{{request.user.membre.photo.document}}" class="avatar img-fluid rounded-circle mr-1">
+									{% else %}
+										<img id="avatar" alt="avatar" src="{% if membre.genre == 1 %}{% static "default_theme/images/male.png" %}{% else %}{% static "default_theme/images/female.png" %}{% endif %}" class="avatar img-fluid rounded-circle mr-1">
+									{% endif %}
+								</a>
+								
+								<div class="dropdown-menu dropdown-menu-right">
+									{% comment %}
+									<a class="dropdown-item" href="#"><i class="align-middle mr-1" data-feather="pie-chart"></i> Analytics</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="pages-settings.html">Settings & Privacy</a>
+									<a class="dropdown-item" href="#">Help</a> {% endcomment %}
+									 {% comment %} <a class="dropdown-item" href="{% url 'membre_detail' request.user.membre.id %}"><i class="align-middle mr-1" data-feather="user"></i> Profile</a> {% endcomment %}
+									<a class="dropdown-item" href="{% url 'logout' %}">Sign out</a>
+								</div>
+							</li>
+						</ul>
+					</div>
+				{% endblock right_menu %}
+			</nav>
+			{% endblock navbar %}
+			
+			<main class="content">
+				
+				{% block content %}
+					<div class="container-fluid p-0">
+						<h1 class="h3 mb-3">Blank Page</h1>
+						<div class="row">
+							<div class="col-12">
+								<div class="card">
+									<div class="card-header">
+										<h5 class="card-title mb-0">Empty card</h5>
+									</div>
+									<div class="card-body">
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				{% endblock content %}
+			</main>
+
+			{% block footer %}
+				<footer class="footer">
+					<div class="container-fluid">
+						<div class="row text-muted">
+							<div class="col-6 text-left">
+								<ul class="list-inline">
+									<li class="list-inline-item">
+										<a class="text-muted" href="#">Support</a>
+									</li>
+									<li class="list-inline-item">
+										<a class="text-muted" href="#">Help Center</a>
+									</li>
+									<li class="list-inline-item">
+										<a class="text-muted" href="#">Privacy</a>
+									</li>
+									<li class="list-inline-item">
+										<a class="text-muted" href="#">Terms of Service</a>
+									</li>
+								</ul>
+							</div>
+							<div class="col-6 text-right">
+								<p class="mb-0">
+									&copy; 2019 - <a href="index-2.html" class="text-muted">EQUITANCE - TRESOR</a>
+								</p>
+							</div>
+						</div>
+					</div>
+				</footer>
+			{% endblock footer %}
+		</div>
+	</div>
+
+
+		
+
+		<script src="{% static "default_theme/plugins/jquery/jquery.min.js" %}"></script>
+		<script src="{% static "default_theme/plugins/datatable/jquery.dataTables.min.js" %}"></script>
+		<script src="{% static "default_theme/plugins/bootstrap/bootstrap.min.js" %}"></script>
+		<script src="{% static "default_theme/js/global_functions.js" %}"></script>
+		<script src="{% static "default_theme/plugins/select2/js/select2.min.js" %}"></script>
+		<script src="{% static "default_theme/plugins/jBreadCrumb/js/jquery.jBreadCrumb.1.1.min.js" %}"></script>	
+		<script src="{% static "default_theme/plugins/barcoder/JsBarcode.all.min.js" %}"></script>
+		{% include 'session_security/all.html' %}
+		
+		<script>
+			$(document).ready(function(){
+				$(".sidebar-toggle").on("click", function(){
+					if($("#sidebar").hasClass("toggled")){
+						$("#sidebar").removeClass("toggled");
+					}else{
+
+						$("#sidebar").addClass("toggled");
+					}
+				})
+			})
+		</script>
+
+	{% block extra_js %}
+
+	{% endblock extra_js %}
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+{% load static %}
+<style type="text/css">
+    .header{
+        margin
+    }
+
+    .header .logo1{
+        width: 15%;
+        float: left;
+        text-align: center;
+    }
+
+    .header .logo2{
+        width: 15%;
+        float: right;
+        text-align: center;
+    }
+
+    .header .center{
+        width: 70%;
+        float: left;
+        text-align: center;
+    }
+
+    .header .contact div{
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    #content{
+        clear: both;
+        margin: 15px 10px;
+    }
+
+
+    *{
+        font-family: Oswald
+    }
+    
+</style>
+<div class="header" style="margin: 10px 25px;height: 120px;">
+    <div class="logo1">
+        <img src="{% static 'default_theme/images/armoirie.png' %}" alt="" style="width: 180px;height: 115px;">
+    </div>
+        <div class="center">
+        <div style="font-size: 18px;">REPUBLIQUE DU NIGER</div>
+        <div style="font-size: 18px;">MINISTERE DES FINANCES</div>
+        <div style="font-size: 15px;">DIRECTION GENERALE DU TRESOR ET DE <br/>LA COMPTABILITE PUBLIQUE</div>
+        
+
+        <div style="margin-top: 10px" class="contact">
+            <div>AGENT COMPTABLE CENTRALE DU TRESOR</div>
+        </div>
+    </div>
+        <div class="logo2">
+        <img src="{% static 'default_theme/images/dgtcp.jpg' %}" alt="" style="width: 125px;">
+    </div>
+</div>

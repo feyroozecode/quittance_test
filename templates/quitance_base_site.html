@@ -1,0 +1,272 @@
+{% load i18n static %}
+
+{% load django_htmx %}
+{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="Responsive Bootstrap 4 Admin &amp; Dashboard Template">
+		<link href="{% static 'sitefnt/images/favicon.png' %}" rel="shortcut icon" type="image/png">
+		<meta name="author" content="Bootlab">
+
+		<title>EQUITANCE - TRESOR</title>
+		
+		<link href="{% static 'quitance/assets/css/theme.min.css' %}" rel="stylesheet">
+		<link href="{% static "default_theme/css/classic.css" %}" rel="stylesheet">
+		<link href="{% static "default_theme/plugins/select2/css/select2.min.css" %}" rel="stylesheet" />
+	
+		<style>
+			body{
+				background-color: #DBEDD0 !important;
+			  }
+			
+			
+			  .loading {
+				position: fixed;
+				z-index: 999;
+				height: 2em;
+				width: 2em;
+				overflow: show;
+				margin: auto;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				right: 0;
+			  }
+			
+			/* Transparent Overlay */
+			.loading:before {
+			  content: '';
+			  display: block;
+			  position: fixed;
+			  top: 0;
+			  left: 0;
+			  width: 100%;
+			  height: 100%;
+			  background-color: rgba(0,0,0,0.3);
+			}
+			
+			/* :not(:required) hides these rules from IE9 and below */
+			.loading:not(:required) {
+			  /* hide "loading..." text */
+			  font: 0/0 a;
+			  color: transparent;
+			  text-shadow: none;
+			  background-color: transparent;
+			  border: 0;
+			}
+			
+			.loading:not(:required):after {
+			  content: '';
+			  display: block;
+			  font-size: 10px;
+			  width: 1em;
+			  height: 1em;
+			  margin-top: -0.5em;
+			  -webkit-animation: spinner 1500ms infinite linear;
+			  -moz-animation: spinner 1500ms infinite linear;
+			  -ms-animation: spinner 1500ms infinite linear;
+			  -o-animation: spinner 1500ms infinite linear;
+			  animation: spinner 1500ms infinite linear;
+			  border-radius: 0.5em;
+			  -webkit-box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.5) -1.5em 0 0 0, rgba(0, 0, 0, 0.5) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+			  box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) -1.5em 0 0 0, rgba(0, 0, 0, 0.75) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+			}
+			
+			/* Animation */
+			
+			@-webkit-keyframes spinner {
+			  0% {
+				-webkit-transform: rotate(0deg);
+				-moz-transform: rotate(0deg);
+				-ms-transform: rotate(0deg);
+				-o-transform: rotate(0deg);
+				transform: rotate(0deg);
+			  }
+			  100% {
+				-webkit-transform: rotate(360deg);
+				-moz-transform: rotate(360deg);
+				-ms-transform: rotate(360deg);
+				-o-transform: rotate(360deg);
+				transform: rotate(360deg);
+			  }
+			}
+			@-moz-keyframes spinner {
+			  0% {
+				-webkit-transform: rotate(0deg);
+				-moz-transform: rotate(0deg);
+				-ms-transform: rotate(0deg);
+				-o-transform: rotate(0deg);
+				transform: rotate(0deg);
+			  }
+			  100% {
+				-webkit-transform: rotate(360deg);
+				-moz-transform: rotate(360deg);
+				-ms-transform: rotate(360deg);
+				-o-transform: rotate(360deg);
+				transform: rotate(360deg);
+			  }
+			}
+			@-o-keyframes spinner {
+			  0% {
+				-webkit-transform: rotate(0deg);
+				-moz-transform: rotate(0deg);
+				-ms-transform: rotate(0deg);
+				-o-transform: rotate(0deg);
+				transform: rotate(0deg);
+			  }
+			  100% {
+				-webkit-transform: rotate(360deg);
+				-moz-transform: rotate(360deg);
+				-ms-transform: rotate(360deg);
+				-o-transform: rotate(360deg);
+				transform: rotate(360deg);
+			  }
+			}
+			@keyframes spinner {
+			  0% {
+				-webkit-transform: rotate(0deg);
+				-moz-transform: rotate(0deg);
+				-ms-transform: rotate(0deg);
+				-o-transform: rotate(0deg);
+				transform: rotate(0deg);
+			  }
+			  100% {
+				-webkit-transform: rotate(360deg);
+				-moz-transform: rotate(360deg);
+				-ms-transform: rotate(360deg);
+				-o-transform: rotate(360deg);
+				transform: rotate(360deg);
+			  }
+			}
+
+			.navy {
+				display: -webkit-box;
+				display: flex;
+				flex-wrap: wrap;
+				padding-left: 0;
+				margin-bottom: 0;
+				list-style: none;
+			}
+
+			a, a:hover {
+				color: #017801;
+				text-decoration: none;
+				background-color: transparent;
+			}
+
+			.form-floating>label {
+				line-height: 8px;
+			}
+
+			.form-floating>.form-control {
+				height: calc(2.5rem + 2px);
+				line-height: 1.25;
+			}
+			
+			.form-floating>.form-select {
+				height: calc(2.5rem + 2px);
+				line-height: 2.25;
+				padding: 0 15px;
+				font-size: 14px;
+			}
+
+			.form-floating>.form-select~label {
+				padding: 5px;
+				font-size: 13px !important;
+				background: white;
+				opacity: 1;
+				height: 13px;
+				margin: 0 8px;
+				line-height: 0;
+			}
+
+			.select2-container .select2-selection--single{
+				height: 40px;
+			}
+			.select2-container .select2-selection--single .select2-selection__rendered{
+				line-height: 27px;
+			}
+			.form-floating>.form-select~label.error{
+				position: absolute;
+				bottom: -12px;
+				font-size: 11px !important;
+				opacity: 1 !important;
+			}
+
+			.theme-wizard .nav-link.active .nav-item-circle {
+				background-color: #f47423 !important;
+				color: #fff;
+				border-color: #8e3f03;
+			}
+			.theme-wizard .nav-link.active {
+				color: #8e3f03;
+			}
+			.avatar {
+				width: 25px;
+				height: 25px;
+			}
+			
+		.btn-print{
+			background: #dee2e6 !important;
+			color: black !important;
+			border-color: #748194 !important;
+		}
+		</style>
+		{% block extra_style %}
+			
+		{% endblock extra_style %}
+
+		<script src="{% static "default_theme/plugins/jquery/jquery.min.js" %}"></script>
+		<script src="{% static 'default_theme/plugins/htmx/htmx.min.js' %}" defer></script>
+	</head>
+
+	<body>
+		
+		<div class="main_content">
+			{% block header_menu %}
+				<div class="loading" id="loading">Loading&#8230;</div>
+				<div class="page_block h-100" id="page_block" style="max-width: 1400px;margin: 0 auto; display: none">
+				<img src="{% static 'default_theme/images/tresor.png' %}" width="100%" />
+				<div style="width: 100%; height: 8px; background-color: #2c8622cf; margin: 2px 0;"></div>	
+				
+			{% endblock header_menu %}
+			{% block content %}
+		
+				
+				
+			{% endblock content %}
+		</div>
+		</div>
+		{% block footer %}
+		{% endblock footer %}
+
+			
+
+
+		<script src="{% static "default_theme/js/app.js" %}"></script>
+
+		<script src="{% static 'quitance/assets/lib/jquery-validation/jquery.validate.min.js' %}"></script>
+		<script>
+
+			$(".dateinput").daterangepicker({
+				locale: {
+					format: 'DD-MM-YYYY'
+				},
+				singleDatePicker: true,
+				showDropdowns: true,
+				minYear: 1901,
+				maxYear: parseInt(moment().format('YYYY'),10)   
+			});
+		</script>
+		{% block extra_js %}
+
+		{% endblock extra_js %}
+
+		{% django_htmx_script %}
+	</body>
+</html>

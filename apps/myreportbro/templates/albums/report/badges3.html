@@ -1,0 +1,371 @@
+{% load tag_library %}
+{% load django_tables2 %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+<head>
+
+    <script src="{% static "default_theme/plugins/jquery/jquery.min.js"%}"></script>
+    <script src="{% static "default_theme/plugins/qrcode/qrcode.min.js" %}"></script>
+</head>
+
+<script>
+
+    var observateurs = []
+    function makeCode(id, elText) {
+        $("#" + id).html("")
+        var qrcode = new QRCode(id, {
+            width: 80,
+            height: 80
+        });
+        qrcode.makeCode(elText);
+    }
+
+    $(document).ready(function () {
+        observateurs = [{% for ob in "y"|ljust:"205" %}{ "id": "obqrcode{{forloop.counter}}", "text": "{% if forloop.counter < 10 %}00{{forloop.counter}}{% elif forloop.counter < 100 %}0{{forloop.counter}}{% else %}{{forloop.counter}}{% endif %} | Atelier national d'evaluation du cycle electoral 2017-2021"}, {% endfor %}""]
+        observateurs = observateurs.slice(0, observateurs.length - 1).forEach((ob) => {
+            makeCode(ob.id, ob.text)
+        })
+
+        // setTimeout(function () {
+        //     document.pr
+        // }, 1000);
+    });
+
+
+</script>
+
+{% block extra_style %}
+<style>
+    body {
+        text-align: center
+    }
+
+    .page {
+        margin: 20px 0;
+        width: 43%;
+        height: 515px;
+        float: left;
+        padding: 2px;
+        margin: 10px 15px;
+        border: 5px solid #000;
+        border-radius: 10px;
+        background: white;
+    }
+
+    .header {
+        float: left;
+        width: 100%;
+        font-size: 12px;
+        margin: 0;
+        height: 75px;
+    }
+
+    .footer {
+        float: left;
+        width: 100%;
+        font-size: 12px;
+        margin-top: 0px;
+    }
+
+    .logo1 {
+        width: 30%;
+        /* height: 80px; */
+        float: left;
+        margin: 3px;
+        text-align: left;
+    }
+
+    .logo2 {
+        width: 46%;
+        height: 50px;
+        float: right;
+        margin: 3px 10px;
+        vertical-align: middle;
+        text-align: right;
+    }
+
+    .logo2 div {
+        width: 100%;
+        height: 80px;
+        float: right;
+        margin: 16px;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .header img {
+        width: 75px;
+        height: 60px
+    }
+
+    .logo3 {
+        margin: 15px;
+    }
+
+    .logo3 img {
+        width: 160px;
+        height: 115px;
+        border-radius: 10%;
+    }
+
+    .logo3 div {
+        width: 160px;
+        height: 115px;
+        margin: 3px;
+        border-radius: 10%;
+        border: 1px solid;
+        padding: 2px;
+    }
+
+    .content {
+        clear: both;
+        text-align: center;
+        margin-top: 0px;
+        float: left;
+        width: 100%;
+        height: 325px
+    }
+
+    .obs {
+        text-align: center;
+        margin: 0px;
+        padding: 2px;
+    }
+
+    .sign {
+        width: 50%;
+        float: right;
+        height: 38px;
+    }
+
+    .qrcode {
+        height: 38px;
+    }
+
+    .qrcode div {
+        margin-left: 20px;
+        text-align: center;
+        margin-top: 25px;
+    }
+
+    .border_organisation_internationale,
+    .border_organisation_international,
+    .border_ambassade {
+        border-color: green !important
+    }
+
+    .border_press_internationale,
+    .border_press_nationale {
+        border-color: #03037d !important
+    }
+
+
+    .border_organisation_nationale {
+        border-color: #d87118 !important
+    }
+
+    @media all {
+        .page-break {
+            display: none;
+        }
+    }
+
+    @media print {
+        .page-break {
+            clear: both;
+            page-break-after: always;
+        }
+    }
+</style>
+{% endblock extra_style %}
+
+
+
+
+{% comment %} {% for observer in "x"|ljust:"4" %} {% endcomment %}
+{% for observer in observers %}
+<div>
+    <div id="obs{{forloop.counter}}"
+        class="page {% cycle 'row1' 'row2' 'row3' 'row4' as rowcolors %} border_organisation_nationale">
+        <div class="cover border_organisation_nationale">
+            <div class="header">
+                <table width="100%">
+                    <tr>
+                        <td> <img src="{% static 'default_theme/images/armoirie.png' %}" width="100px" alt="" style="
+    width: 68px;
+    height: 54px;
+"> </td>
+                        <td>
+                            <div style="text-align: center; font-size: 14px;">
+                                <b>REPUBLIQUE DU NIGER </b>
+                                <br>
+                                <span style="font-size: 12px;     font-family: sans-serif;">Commission Electorale
+                                    Nationale Independante (CENI)
+                            </div>
+                        </td>
+                        <td><img src="{% static 'default_theme/images/logo.png' %}" width="100px" class="" alt="Avatar"
+                                style="
+    width: 65px;
+    height: 65px;
+"></td>
+                    </tr>
+                </table>
+
+
+            </div>
+            <div class="content {% cycle 'r1' 'r2' 'r3' 'r4' as row  %}">
+
+                <div style="font-size: 18px; margin-bottom: 7px; margin-top:7px">
+                    <b> N<sup>o</sup> {% if forloop.counter < 10 %}00{{forloop.counter}} {% elif forloop.counter < 100 %} 0{{forloop.counter}} {% else %} {{forloop.counter}} {% endif %} </b>
+                </div>
+
+                <div class="obs">
+                    <div style="font-size: 22px; margin-bottom: 10px; ">
+                        <b style="font-variant-caps: all-petite-caps;">SEMINAIRE INTERNATIONAL</b>
+                        <br/>
+                    <small style="font-size: 12px;  margin-bottom: 10px;"> Echanges d’expériences sur la gestion d’une Commission <br/>  Electorale Nationale Indépendante Permanente </small>
+                </div>
+                    
+                    <div style="margin-bottom: 10px;">
+                    <small style="font-size: 14px;"> Hôtel Radisson Blu <br> <span
+                            style="color: #a4281f; font-weight: 900;">Niamey du 01 au 03 Juillet 2021</span> </small>
+                    </div>
+                     <br />
+
+                <div style="font-size: 18px;font-weight: bold;">{{observer.name|upper}} </div>
+                <span><strong><b style="font-size: 14px;font-weight: bold;">{{observer.fonction}}</b></strong></span>
+                </div>
+                <div
+                    style="font-size: 30px;margin-bottom: 5px;margin-top: 10px;border: 2px solid #d87117;margin-left: 30px;margin-right: 30px;padding: 5px;background: #148e12cc;color: white;">
+                    <b> PARTICIPANT</b>
+                </div>
+                {% comment %} <div
+                    style="font-size: 16px;margin-bottom: 30px;margin-top: 20px;border: 2px solid #015004;margin-left: 30px;margin-right: 30px;padding: 5px;background: #02ac00;color: white;line-height: 1.4;">
+                    <b> SECRETARIAT <br> DU COMITE D'ORGANISATION</b>
+                </div> {% endcomment %}
+
+
+                <div>
+                    {% comment %} <div style=" margin: 0 20px; font-size: 20px; text-transform: uppercase;">
+                        {{observer.nom}} {{observer.prenom|default_if_none:""}}</div> {% endcomment %}
+                    {% comment %} {% if observer.prenom != None %}
+                    <div style="font-size: 15px;"></div>
+                    {% endif %} {% endcomment %}
+                </div>
+
+
+            </div>
+
+            <div class="footer">
+                <center>
+                    <div class="qrcode2">
+                        {% comment %} <div style="float: right; margin-right: 40px;" id="obqrcode{{forloop.counter}}"></div> {% endcomment %}
+
+                        <div>
+                            <img src="{% static 'default_theme/images/pnud2.png'%}" width="60px" style="margin: 2px; border-radius: 5px;" alt="">
+                            <br />
+                            <b>Avec l'Appui du PNUD</b>
+                        </div>
+                    </div>
+
+                </center>
+
+                {% comment %} <center>
+                    <div class="qrcode2">
+                        <div >
+                            <img src="/media/uploads/documents/organisation_57/Capture_decran_2020-12-11_a_16.23.38.png" width="70px" style="margin: 2px; border-radius: 5px;" alt="">
+                            <br />
+                            <b>Avec l'Appui du PNUD</b>
+                        </div>
+                    </div>
+                </center> {% endcomment %}
+            </div>
+
+        </div>
+
+        {% if rowcolors == "row4" %}
+        <div class="page-break"></div>
+        {% endif %}
+    </div>
+</div>
+{% endfor %}
+
+{% if request.GET.type == "verso" %}
+
+
+{% for observer in observers %}
+<div>
+    <div
+        class="page {% cycle 'row1' 'row2' 'row3' 'row4' as rowcolors %} border_{{observer.demande.organisation.type_organisation.code}}">
+        <div class="cover border_{{observer.demande.organisation.type_organisation.code}}">
+            <div class="content">
+
+                <div>
+                    <img src="{% static 'default_theme/images/logo.png' %}" alt="" style="width:140px; height: 140px;">
+                </div>
+                <div class="obs">
+                    <span style="font-size: 19px">Cette carte est la propriété de la CENI. Prière à toute personne qui
+                        la trouve de la déposer au siège de la CENI. </sapn>
+                </div>
+                <div style="height: 158px; margin-top: 15px">
+                    <div style="margin-top: 10px">
+                        <b><u>NUMÉROS ET ADRESSES UTILES : </u></b>
+                    </div>
+
+                    <br>
+                    <table style="margin-left: 30px;">
+                        <tr>
+                            <td> - Sécurité </td>
+                            <td>:</td>
+                            <td><b style="color: red">118</b></td>
+                        </tr>
+                        <tr>
+                            <td> - Santé </td>
+                            <td>:</td>
+                            <td><b style="color: red">15</b></td>
+                        </tr>
+                        <tr>
+                            <td> - Pompier </td>
+                            <td>:</td>
+                            <td><b style="color: red">18</b></td>
+                        </tr>
+
+                    </table>
+                </div>
+
+                <div class="footer">
+                    <div>
+
+                        <b>Téléphone: 20 33 03 86</b>
+                        <br>
+                        <b>BP: 13782</b>
+                        <br>
+                        <br>
+                        <br>
+                        <b style="font-size: 16px;"><strong>Fin de Validité: 25 Février 2021</strong></b>
+
+                        <div style="margin-top: 8px; font-size: 8px; ">
+                            <img style="width: 20px;" src="{% static 'default_theme/images/web.png' %}" alt=""><b
+                                style="vertical-align: super"> http://www.ceniniger.org</b> |
+                            <img style="width: 20px;" src="{% static 'default_theme/images/f.png' %}" alt=""> <b
+                                style="vertical-align: super">Ceniniger</b> |
+                            <img style="width: 20px;" src="{% static 'default_theme/images/twitter_bird.svg' %}" alt="">
+                            <b style="vertical-align: super">@Ceniniger</b> |
+                            <img style="width: 20px;" src="{% static 'default_theme/images/playstore.png' %}" alt=""> <b
+                                style="vertical-align: super">CENI NIGER</b>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        {% if rowcolors == "row4" %}
+        <div style="page-break-before: always"></div>
+        {% endif %}
+    </div>
+
+</div>
+{% endfor %}
+{% endif %}

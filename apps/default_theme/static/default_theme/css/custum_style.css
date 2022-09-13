@@ -1,0 +1,564 @@
+
+            .center{
+                text-align: center;
+            }
+
+            .right{
+                text-align: right
+            }
+            
+            .mycard {
+                margin-bottom: 0 !important;
+            }
+
+            table{
+                width: 100%
+            }
+
+            thead th{
+                padding: 0
+            }
+
+            #membership-card-preview {
+                font-weight: 600;
+                margin: 0 auto 15px;
+                text-align: center;
+                border: 1px solid #8f8f8f;
+                color: #555;
+                background: #fff;
+                padding: 8px 0;
+                width: 388px;
+                font-size: 14px;
+                text-transform: uppercase;
+                border-radius: 2px
+            }
+
+            .membership-card {
+                background: #fff;
+                margin: 0 auto 10mm;
+                padding: 10px 15px;
+                border-image: none;
+                box-shadow: 0 1px 2px rgba(0,0,0,.1);
+                box-sizing: border-box;
+                position: relative;
+                width: 87.725mm;
+                height: 54.975mm;
+                font-weight: 600;
+                border: 1px solid #000;
+                border-radius: 18px;
+                overflow: hidden;
+                direction: ltr;
+                float: left;
+            }
+
+            .membership-card #mna-logo {
+                height: 40px;
+                top: 20px;
+                position: relative;
+                width: auto;
+                margin-top: 6px;
+                margin-bottom: 2px
+            }
+
+            .membership-card.red {
+                background: url('/static/default_theme/images/fnt_athelete_card.png') no-repeat;
+                background-size: cover
+            }
+
+            .membership-card.blue {
+                background: url('/static/default_theme/images/fnt_official_card.png') no-repeat;
+                background-size: cover
+            }
+
+            .membership-card.verso {
+                background: url('/static/default_theme/images/fnt_verso.png') no-repeat;
+                background-size: cover
+            }
+
+            .membership-card #photo {
+                position: absolute;
+                right: 13px;
+                bottom: 27px;
+                width: 79px;
+                background-repeat: no-repeat;
+                height: 97px;
+                background-position: center;
+            }
+            
+            .membership-card #wtf-logo {
+                height: 35px;
+                width: auto
+            }
+
+            .membership-card #nation-logo {
+                height: 40px;
+                width: auto;
+                float: left;
+                margin-right: 20px
+            }
+
+            .membership-card #wtf-no {
+                display: block;
+                width: auto;
+                overflow: hidden;
+                padding-top: 10px
+            }
+
+            .membership-card #details {
+                float: left;
+                width: 70%
+            }
+
+            .membership-card #info {
+                position: absolute;
+                top: 61px;
+                width: 220px;
+            }
+
+            .membership-card #info p {
+                margin-bottom: 0;
+                line-height: 1.1;
+                color: #000
+            }
+
+            .membership-card p#cardId {
+                font-size: 17px;
+                font-weight: inherit;
+                position: absolute;
+                right: 1px;
+                top: 39px;
+                width: 100px;
+                text-align: center;
+                color: #000;
+                font-family: cursive;
+            }
+
+            .membership-card p#cardId.keup{
+                font-size: 14px;
+                top: 45px;
+                width: 105px;
+            }
+
+            .membership-card p#licenceID{
+                font-size: 9px;
+                left: 92px;
+                font-weight: 900;
+                color: #ff4700;
+                margin-top: 36px;
+                text-align: center;
+            }
+
+            #cardLicenceId{
+                color: #000;
+                font-size: 15px;
+            }
+
+            .membership-card #info p#cardBeltRank,.membership-card #info p#cardName,.membership-card #info p#cardRole {
+                font-size: 12px;
+                font-weight: 600;
+                margin: 3px 0;
+            }
+
+            .membership-card #info p#cardName {
+                letter-spacing: -.4px
+            }
+
+            .membership-card #info p#cardGrade {
+                letter-spacing: -.4px;
+                font-size: 11px;
+            }
+
+            .membership-card #info p#cardBeltRank {
+                letter-spacing: -.9px
+            }
+
+            .membership-card #info p#cardClubName,.membership-card #info p#cardCoachLevel,.membership-card #info p#cardDOB,.membership-card #info p#cardMNA,.membership-card #info p#cardNationalNumber,.membership-card #info p#cardRefereeLevel,.membership-card #info p#primaryPosition {
+                font-size: 13px;
+                font-weight: 500
+            }
+
+            .membership-card p#cardExpireDate {
+                font-size: 26px;
+                font-weight: 600;
+                color: #000;
+                margin-bottom: 5px
+            }
+
+            .membership-card span#cardValidUntil {
+                -ms-transform: rotate(270deg);
+                -moz-transform: rotate(270deg);
+                -webkit-transform: rotate(270deg);
+                -o-transform: rotate(270deg);
+                white-space: nowrap;
+                display: block;
+                bottom: 12px;
+                width: 20px;
+                height: 20px;
+                color: #000;
+                font-size: 5px;
+                position: absolute;
+                font-weight: 600;
+                left: -9px
+            }
+
+            .membership-card .qrCode {
+                position: absolute;
+                bottom: 1px;
+                right: 11px;
+            }
+
+            .membership-card .qrCode .qrCodeImg {
+                width: 80px;
+                height: 12px;
+                border: 1px solid #000;
+                align-self: center;
+            }
+
+            .membership-card #photo img {
+                border: 1px solid #e5e5e5;
+                height: 129px;
+                border-radius: 2px;
+                display: block;
+                overflow: hidden;
+                background: #fff
+            }
+
+            .membership-card-wrapper .message-wrapper {
+                margin-bottom: 20px
+            }
+
+
+            html[dir=rtl] .membership-card .text-left {
+                text-align: left!important
+            }
+
+            html[dir=rtl] .membership-card .text-right {
+                text-align: right!important
+            }
+
+            html[dir=rtl] .membership-card .pull-left {
+                float: left!important
+            }
+
+            html[dir=rtl] .membership-card .pull-right {
+                float: right!important
+            }
+
+            .asteriskField{
+                color: red
+            }
+
+
+    .membership-card .cardTable td {
+        margin: 0;
+        padding: 1px;
+        font-size: 10px;
+        font-weight: initial;
+        color: #000;
+    }
+
+    .membership-card .cardTable td.libele {     
+        font-weight: bold;
+        width: 75px;
+    }
+
+    td div {
+        max-height: 15px;
+        overflow: hidden;
+    }
+
+    .membership-card table.cardTable {
+        border: 0;
+        margin: 0;
+    }
+
+    .select2.select2-container.select2-container--bootstrap4{
+        width: 100% !important;
+    }
+
+    .dataTables_wrapper{
+        width: 100% !important;
+    }
+
+    .select2.select2-container{
+        width: 100% !important;
+    }
+/* 
+    .center{
+        text-align: center;
+    }
+
+    .right{
+        text-align: right
+    }
+    
+    .mycard {
+        margin-bottom: 0 !important;
+    }
+
+    table{
+        width: 100%
+    }
+
+    thead th{
+        padding: 0
+    }
+
+    #membership-card-preview {
+        font-weight: 600;
+        margin: 0 auto 15px;
+        text-align: center;
+        border: 1px solid #8f8f8f;
+        color: #555;
+        background: #fff;
+        padding: 8px 0;
+        width: 388px;
+        font-size: 14px;
+        text-transform: uppercase;
+        border-radius: 2px
+    }
+
+    .membership-card {
+        background: #fff;
+        margin: 0 auto 20px;
+        padding: 10px 15px;
+        border-image: none;
+        box-shadow: 0 1px 2px rgba(0,0,0,.1);
+        box-sizing: border-box;
+        position: relative;
+        width: 125mm;
+        height: 78mm;
+        font-weight: 600;
+        border: 1px solid #000;
+        border-radius: 18px;
+        overflow: hidden;
+        direction: ltr;
+        float: left;
+    }
+
+    .membership-card #mna-logo {
+        height: 40px;
+        top: 20px;
+        position: relative;
+        width: auto;
+        margin-top: 6px;
+        margin-bottom: 2px
+    }
+
+    .membership-card.red {
+        background: url('/static/default_theme/images/fnt_athelete_card.png') no-repeat;
+        background-size: cover
+    }
+
+    .membership-card.blue {
+        background: url('/static/default_theme/images/fnt_official_card.png') no-repeat;
+        background-size: cover
+    }
+
+    .membership-card.verso {
+        background: url('/static/default_theme/images/fnt_verso.png') no-repeat;
+        background-size: cover
+    }
+
+    .membership-card #photo {
+        position: absolute;
+        right: 19px;
+        bottom: 37px;
+        width: 112px;
+        background-repeat: no-repeat;
+        height: 137px;
+        background-position: center;
+    }
+    
+    .membership-card #wtf-logo {
+        height: 35px;
+        width: auto
+    }
+
+    .membership-card #nation-logo {
+        height: 40px;
+        width: auto;
+        float: left;
+        margin-right: 20px
+    }
+
+    .membership-card #wtf-no {
+        display: block;
+        width: auto;
+        overflow: hidden;
+        padding-top: 10px
+    }
+
+    .membership-card #details {
+        float: left;
+        width: 70%
+    }
+
+    .membership-card #info {
+        position: absolute;
+        top: 90px;
+        width: 315px;
+    }
+
+    .membership-card #info p {
+        margin-bottom: 0;
+        line-height: 1.1;
+        color: #000
+    }
+
+    .membership-card p#cardId {
+        font-size: 21px;
+        font-weight: inherit;
+        position: absolute;
+        right: 18px;
+        top: 65px;
+        width: 115px;
+        text-align: center;
+        color: #000;
+        font-family: cursive;
+    }
+
+    .membership-card p#licenceID{
+        font-size: 12px;
+        left: 92px;
+        font-weight: 900;
+        color: #ff4700;
+        margin-top: 52px;
+        text-align: center;
+    }
+
+    #cardLicenceId{
+        color: #000;
+        font-size: 18px;
+    }
+
+    .membership-card #info p#cardBeltRank,.membership-card #info p#cardName,.membership-card #info p#cardRole {
+        font-size: 15px;
+        font-weight: 600;
+        margin: 3px 0;
+    }
+
+    .membership-card #info p#cardName {
+        letter-spacing: -.4px
+    }
+
+    .membership-card #info p#cardGrade {
+        letter-spacing: -.4px;
+        font-size: 11px;
+    }
+
+    .membership-card #info p#cardBeltRank {
+        letter-spacing: -.9px
+    }
+
+    .membership-card #info p#cardClubName,.membership-card #info p#cardCoachLevel,.membership-card #info p#cardDOB,.membership-card #info p#cardMNA,.membership-card #info p#cardNationalNumber,.membership-card #info p#cardRefereeLevel,.membership-card #info p#primaryPosition {
+        font-size: 13px;
+        font-weight: 500
+    }
+
+    .membership-card p#cardExpireDate {
+        font-size: 26px;
+        font-weight: 600;
+        color: #000;
+        margin-bottom: 5px
+    }
+
+    .membership-card span#cardValidUntil {
+        -ms-transform: rotate(270deg);
+        -moz-transform: rotate(270deg);
+        -webkit-transform: rotate(270deg);
+        -o-transform: rotate(270deg);
+        white-space: nowrap;
+        display: block;
+        bottom: 12px;
+        width: 20px;
+        height: 20px;
+        color: #000;
+        font-size: 5px;
+        position: absolute;
+        font-weight: 600;
+        left: -9px
+    }
+
+    .membership-card .qrCode {
+        position: absolute;
+        bottom: 2px;
+        right: 15px;
+    }
+
+    .membership-card .qrCode .qrCodeImg {
+        width: 119px;
+        height: 20px;
+        border: 1px solid #000;
+        align-self: center;
+    }
+
+    .membership-card #photo img {
+        border: 1px solid #e5e5e5;
+        height: 129px;
+        border-radius: 2px;
+        display: block;
+        overflow: hidden;
+        background: #fff
+    }
+
+    .membership-card-wrapper .message-wrapper {
+        margin-bottom: 20px
+    }
+
+
+    html[dir=rtl] .membership-card .text-left {
+        text-align: left!important
+    }
+
+    html[dir=rtl] .membership-card .text-right {
+        text-align: right!important
+    }
+
+    html[dir=rtl] .membership-card .pull-left {
+        float: left!important
+    }
+
+    html[dir=rtl] .membership-card .pull-right {
+        float: right!important
+    }
+
+    .asteriskField{
+        color: red
+    }
+
+
+.membership-card .cardTable td {
+margin: 0;
+padding: 1px;
+font-size: 12px;
+font-weight: initial;
+color: #000;
+}
+
+.membership-card .cardTable td.libele {     
+font-weight: bold;
+width: 100px;
+}
+
+td div {
+max-height: 15px;
+overflow: hidden;
+}
+
+.membership-card table.cardTable {
+border: 0;
+margin: 0;
+}
+
+.select2.select2-container.select2-container--bootstrap4{
+width: 100% !important;
+}
+
+.dataTables_wrapper{
+width: 100% !important;
+}
+
+.select2.select2-container{
+width: 100% !important;
+} */

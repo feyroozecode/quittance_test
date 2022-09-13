@@ -1,0 +1,171 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+
+<div class="modal fade" id="sizedModalLg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-xs" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Partie Versante</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body m-3">
+                <form id="PartiVersanteForm" class="pform form-horizontal">
+                    {% crispy versante_form %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    
+    $(document).ready(function() {
+  
+      var partieVersanteform = $("#PartiVersanteForm");
+  
+      partieVersanteform.validate({
+          rules: {
+            type_versante: {
+                  required: true,
+              },
+              reference: {
+                  required: true
+              },
+              nom_prenom: {
+                  required: true
+              },
+          },
+          submitHandler: function (form) {
+              
+              console.log("yessssssssss")
+          }
+      });
+  
+      partieVersanteform.on("submit", function(e){
+              // prevent from normal form behaviour
+  
+              e.preventDefault();
+  
+              $(".invalid-feedback").html("");
+  
+              // serialize the form data  
+              if(partieVersanteform.valid()){
+                  
+                  $("#loading_versante").show();
+                  var serializedData = $(this).serialize();
+                  
+                  console.log(serializedData);
+                  
+                  $("#PartiVersanteForm input, #PartiVersanteForm select").attr("disabled", true);
+  
+                  $.ajax({
+                      type : 'POST',
+                      url :  "{% url 'op_numeraires' %}",
+                      data : serializedData,
+                      success : function(response){
+                        console.log(response)
+                          $("#PartiVersanteForm input, #PartiVersanteForm select").attr("disabled", false)
+                          $("#loading_versante").hide();
+                          $("#id_versante").html('').append('<option value="'+response.data.id+'">'+response.data.reference+': '+response.data.nom_prenom+'</option>');
+                          pick_versante();
+                          partieVersanteform[0].reset();
+                          $("#sizedModalLg .modal-header button.close").click()
+                          console.log("donnnnnnnne")
+                      },
+                      error : function(response){
+                          $("#PartiVersanteForm input, #PartiVersanteForm select").attr("disabled", false)
+                          $("#loading_versante").hide();
+                          console.log(response.responseJSON);
+                          var obj = response.responseJSON["form"];
+                          Object.keys(obj).forEach((key) => {
+                              err = obj[key]
+                              var index = 1
+                              console.log($("#id_"+key).parent())
+                              err.forEach((item) => {
+                                  console.log(key, index, '<span id="id_'+key+'-error" class="invalid-feedback">'+item+'</span>')
+  
+                                  $("#id_"+key).addClass("is-invalid")
+                      
+                                  if($("#id_"+index+key+"-error").length > 0){
+                                      $("#id_"+index+key+"-error").html = '<label id="id_'+index+key+'-error" for="'+key+'-error" class="error invalid-feedback">'+item+'</label>'
+                                  }else{
+                                      $("#id_"+key).parent().append('<label id="id_'+key+'-error" for="'+key+'-error" class="error invalid-feedback">'+item+'</label>')
+                                  }
+                                  index++
+                              })
+                              
+                          });
+                      }
+                  });
+              }
+      });
+
+
+      
+      
+        pick_versante = function () {
+            var formatRepo = function formatRepo(repo) {
+                return repo.text;
+            };
+
+            var formatRepoSelection = function formatRepoSelection(repo) {
+                if(repo.id){
+                    //$("#id_nom_prenom").val(repo.text).parent().parent().hide()
+                }
+                
+                return repo.text;
+            };
+
+            $('#id_versante').select2({
+                placeholder: 'Choisir',
+                allowClear: true,
+                dropdownParent: $("#QuitanceForm"),
+                width: '100%',
+                height: 200,
+                ajax: {
+                    url: "{% url 'ajax_htmx' %}",
+                    dataType: 'json',
+                    delay: 250,
+                    pagination: {
+                        more: true
+                    },
+                    data: function data(params) {
+                        return {
+                            search_versante : params.term, // search term
+                            page: params.page
+                        };
+                    },
+                    processResults: function processResults(data, params) {
+                        params.page = params.page || 1;
+                        
+                        return {
+                            results: data,
+                            pagination: {
+                                more: params.page * 10 < data.count
+                            }
+                        };
+                    },
+                    cache: true
+                },
+                escapeMarkup: function escapeMarkup(markup) {
+                    return markup;
+                },
+                minimumInputLength: 2,
+                templateResult: formatRepo,
+                templateSelection: formatRepoSelection
+            });
+        }
+
+        setTimeout(function(){
+            pick_versante();
+            $('#id_versante').on('select2:unselect', function (e) {
+                //$("#id_nom_prenom").val('').attr('disabled', false).parent().parent().show()
+              });
+        }, 100) 
+    });
+  </script>

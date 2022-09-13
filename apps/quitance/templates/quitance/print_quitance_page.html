@@ -1,0 +1,43 @@
+{% extends "easy_pdf/base.html" %}
+{% load static %}
+
+
+{% block extra_style %}
+<style>
+body{
+    
+    background-color: white !important;
+  }
+  
+  @page, body {
+    size: 105mm 148mm;
+}
+</style>
+{% endblock extra_style %}
+
+{%block page_header%}
+
+
+<div style="width: 100%;  margin-bottom: 20px" >
+    {% include 'quitance/includes/pdf_header.html' %}
+</div>  
+{% endblock %}
+{% block content %}
+    <div style="height: 120mm">
+        {% include 'quitance/includes/quitance.html' %}
+    </div>
+    <hr style="border-style: dashed;" />
+    <div>
+        {% include 'quitance/includes/quitance.html' %}
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        var closeWin = '{{close}}'
+        $(document).ready(function() {
+            $("#loading").hide();
+            $("#page_block").show();
+        })
+    </script>
+{% endblock extra_js %}

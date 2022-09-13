@@ -1,0 +1,63 @@
+{% extends 'quitance_base_site.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  {{ block.super }}
+<div class="justify-content-center pt-3 px-md-5" style="width: 100%; background-color: #f2eecf; border-color: rgba(0,0,0,0.2); padding: 0 5px; min-height: 500px">
+    <div class="row">
+        <div class="">
+            <div class="card col-12 col-xl-4 d-flex offset-xl-4 offset-xs-3 mt-8 ">
+                <div class="card-body row justify-content-center mt-3 mb-2">
+                    <div class="align-self-center w-75">
+                        <div class="">
+                            <form action='' method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="form" value="active_journee"> 
+                                <div class="columns form-group"> 
+                                    <div id="div_id_journee" class="form-floating mb-3"> 
+                                        <input value="{{request.user.actived_journee|date:'d/m/y'}}" type="text" name="journee" maxlength="100" autocomplete="off" label="Partie Versante" class="textinput textInput form-control" placeholder="journee" id="id_journee"> 
+                                        <label for="id_journee">Ouvrir une journée</label> 
+                                    </div> 
+                                </div>
+
+                                <div class=""> 
+                                    <button type="submit" class="btn btn-success" style="width: 100%">Valider</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+    
+    $(function() {
+        $("#id_journee").daterangepicker({
+            locale: {
+                format: 'YYYY-MM-DD'
+            },
+            singleDatePicker: true,
+            showDropdowns: true,
+            minYear: (new Date().getFullYear() - 1),
+            maxDate: new Date(),
+            maxYear: parseInt(moment().format('YYYY'),10)
+        });
+    });
+    $(document).ready(function() {
+  
+        $("#loading").hide();
+        $("#page_block").show();
+        
+    
+    });
+  </script>
+
+{% endblock extra_js %}

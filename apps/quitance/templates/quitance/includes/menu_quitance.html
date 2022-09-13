@@ -1,0 +1,38 @@
+{% load static %}
+<div class="card border shadow-none shadow-0 m-0 top-menu">
+    <div class="card-header" style="padding: 0 0; border-bottom: 0;">
+    <ul class="nav justify-content-between">
+        {% if 'quitance.versement_numeraire' in request.user.get_all_permissions %}
+            <a href="{% url 'op_numeraires' %}">
+                <li class="nav-item {% if selected_op == 'numeraire' %}active{% endif %}"><span class="nav-item-circle-parent"><span class="nav-item-circle"><span class="fas fa-user"></span></span></span><span class="d-none d-md-block mt-1 fs--4">Versement Numéraire</span></li>
+            </a>
+        {% endif %}
+        {% if 'quitance.depot_cheque' in request.user.get_all_permissions %}
+            <a href="{% url 'op_cheques' %}">
+                <li class="nav-item {% if selected_op == 'cheque' %}active{% endif %}"><span class="nav-item-circle-parent"><span class="nav-item-circle"><span class="fas fa-dollar-sign"></span></span></span><span class="d-none d-md-block mt-1 fs--4">Declaration de recette</span></li>
+            </a>
+        {% endif %}
+    </ul>
+    <div class="mx-2" style="position: absolute; right: 0; top: 0; text-align: center">
+        <ul class="navbar-nav ml-auto px-2 pt-2" >
+            <li class="dropdown">
+                <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-toggle="dropdown">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings align-middle"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                </a>
+    
+                <a class="nav-link dropdown-toggle d-none d-sm-inline-block" style='padding-top: 3px' href="#" data-toggle="dropdown" aria-expanded="false">
+                    <img src="{% static 'default_theme/images/male.png' %}" class="avatar img-fluid rounded-circle mr-1 h-2 w-2" alt="Chris Wood"> 
+                    <span class="text-dark">{{request.user}}</span>
+                    
+                </a>
+                <div class="dropdown-menu dropdown-menu-left">
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'select_journee' %}">Changer de journée</a>
+                    <a class="dropdown-item" href="{% url 'logout' %}">Se deconnecter</a>
+                </div>
+            </li>
+        </ul>
+        <div><small>JOURNEE: <b>{{request.user.actived_journee.date|date:'d-m-Y'}}</b></small></div>
+    </div>
+    </div>
+</div>

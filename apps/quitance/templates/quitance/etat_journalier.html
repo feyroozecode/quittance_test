@@ -1,0 +1,58 @@
+{% extends 'quitance_base_site.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load django_htmx %}
+
+
+{% block extra_style %}
+<style>
+    body{
+        background: white !important;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+  {{ block.super }}
+  <div style="font-size: 23px; font-weight: bold; text-align: center; margin: 20px 0;">
+        <b>ETAT JOURNALIER DU {{request.user.actived_journee.date|date:'d/m/Y'}}</b>
+    </div>
+  <table class="table table-bordered table-sm">
+    <thead>
+        <tr>
+            <th class="text-center p-2" style="width: 15px; padding: 0">Nº</th>
+            <th style="width:10%;">Quittance</th>
+            <th>Nature</th>
+            <th>Partie Versante</th>
+            <th>Deposant</th>
+            <th class="text-right" style="width:10%">Montant</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for quitance in last_quitances %}
+            <tr>
+                <td class="text-center" style="padding: 0">{{forloop.counter}}00</td>
+                <td>{{quitance.get_numero}}</td>
+                <td>{{quitance.nature}}</td>
+                <td>{{quitance.nom_partie_versante}}</td>
+                <td>{{quitance.nom_prenom}}</td>
+                <td class="text-right">{{quitance.montant}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+    
+    $(document).ready(function() {
+  
+      $("#loading").hide();
+      $("#page_block").show();
+  
+  
+    });
+  </script>
+{% endblock extra_js %}

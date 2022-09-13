@@ -1,0 +1,35 @@
+{% load static %}   
+
+<table class="m-3" style="width: 100%;  margin-top: 20px">
+    <tbody>
+        <tr>
+            <td class="text-left" width="200px"> {% if quitance.is_dr %}<b>DECLARATION</b> {% else %} <b>QUITTANCE</b> {% endif %} :</td>
+            <td> <b>{{quitance}} du {{quitance.journee.date|date:'d/m/Y'}}</b></td>
+            {% if quitance.bordereau != None %}
+                <td class="text-left" width="200px"><b>Bordereau :</b></td>
+                <td> {{quitance.bordereau.numero}}</td>
+            {% endif %}
+        </tr>
+        <tr>
+            <td class="text-left">Nature :</td>
+            <td colspan={% if quitance.bordereau != None %}3{% else %}2 {% endif %}>{{quitance.libele}}</td>
+        </tr>
+        <tr>
+            <td class="text-left">Recu de :</td>
+            <td colspan={% if quitance.bordereau != None %}3{% else %}2 {% endif %}>{{quitance.nom_partie_versante}}</td>
+        </tr>
+        
+        <tr>
+            <td class="text-left">Reference D :</td>
+            <td>{{quitance.nom_partie_versante}}</td>
+            <td class="text-left">Reference C :</td>
+            <td>{{quitance.nom_partie_versante}}</td>
+        </tr>
+        
+        <tr>
+            <td class="text-left">La somme de :</td>
+            <td colspan={% if quitance.bordereau != None %}3{% else %}2 {% endif %}>{{quitance.montant}}</td>
+        </tr>
+    </tbody>
+</table>
+<div class="m-3" >Six-cent-quatre-vingt</div>

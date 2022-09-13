@@ -1,0 +1,633 @@
+{% extends 'quitance_base_site.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block extra_style %}
+<style>
+    .justify-content-between {
+        -webkit-box-pack: justify!important;
+        justify-content: space-evenly!important;
+    }
+
+    .top-menu .nav-item{
+        text-align: center;
+        width: 200px;
+        padding: 9px 0px;
+        margin: 0;
+    }
+
+    .top-menu .nav-item .fas{
+        font-size: 25px;
+    }
+
+    
+
+    li.nav-item {
+        font-family: cursive;
+        font-size: 15px !important;
+    }
+
+    li.nav-item.active {
+        background: #f2eecf;
+        font-weight: bolder;
+    }
+    .btn-outline-primary {
+        color: #f77310f2 !important;
+        border-color: #8e3f03 !important;
+    }
+
+    primary:not(:disabled):not(.disabled).active, .btn-outline-primary:not(:disabled):not(.disabled):active, .show>.btn-outline-primary.dropdown-toggle {
+        color: #ffffff;
+        background-color: #f36a04;
+        border-color: #8e3f03;
+    }
+
+    .btn-outline-primary:not(:disabled):not(.disabled).active, .btn-outline-primary:not(:disabled):not(.disabled):active, .show>.btn-outline-primary.dropdown-toggle {
+        color: #ffffff !important;
+        background-color: #f36a04 !important;
+        border-color: #8e3f03 !important;
+    }
+    .btn-outline-primary:not(:disabled):not(.disabled).active:focus, .btn-outline-primary:not(:disabled):not(.disabled):active:focus, .show>.btn-outline-primary.dropdown-toggle:focus {
+        box-shadow: 0 0 0 0 rgb(252, 191, 161) !important;
+    }
+    .btn-outline-primary:hover {
+        color: #f36a04 !important;
+        background-color: #f1bf9a !important;
+    }
+    label.error {
+        position: relative;
+        color: red;
+        padding: 0;
+        line-height: 13px;
+        margin: 0;
+        top: unset;
+        right: unset;
+        display: block !important;
+        font-size: 11px;
+    }
+
+    .form-floating>.form-control:focus~label.error, .form-floating>.form-control:not(:placeholder-shown)~label.error, .form-floating>.form-select~label.error {
+        opacity: .65;
+        -webkit-transform: none;
+        -ms-transform: none;
+        transform: none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+  {{ block.super }}
+    {% if request.user.actived_journee == None %}
+        {% include 'quitance/includes/journnee.html' %}
+    {% else %}
+        {% include 'quitance/includes/menu_quitance.html' with selected_op='cheque' %}
+        <div class="justify-content-center h-100 pt-3" style="width: 100%; background-color: #f2eecf; border-color: rgba(0,0,0,0.2); padding: 0 5px; min-height: 700px">
+            <div class="card  m-2">
+
+                <div class="theme-wizard  mt-3 mb-5">
+                    <div class="" id="rootwizard">
+                        <div class="px-sm-3 px-md-5" id="bootstrap-wizard-tab1" style="padding:15px;">
+                            <div class="row">
+                                <div class="col-md-5 col-xl-5">
+                                    <ul class="nav justify-content-between nav-wizard mb-3">
+                                        <li class="nav-item"><a class="nav-link font-weight-semi-bold active" id="step_1"><span class="nav-item-circle-parent"><span class="nav-item-circle"><span class="fas fa-user"></span></span></span><span class="d-none d-md-block mt-1 fs--1">Bordereau</span></a></li>
+                                        <li class="nav-item"><a class="nav-link font-weight-semi-bold" id="step_2"><span class="nav-item-circle-parent"><span class="nav-item-circle"><span class="fas fa-dollar-sign"></span></span></span><span class="d-none d-md-block mt-1 fs--1">Details Bordereau</span></a></li>
+                                        <li class="nav-item"><a class="nav-link font-weight-semi-bold" id="step_3"><span class="nav-item-circle-parent"><span class="nav-item-circle"><span class="fas fa-print"></span></span></span><span class="d-none d-md-block mt-1 fs--1">Quittance</span></a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div id="BordereauFormBox">
+                                            <form id="BordereauForm" class="pform form-horizontal">
+                                                {% crispy bordereau_form %}
+                                                <button id="goToDetail" class="btn btn-primary float-right">Suivant</button>
+                                            </form>
+                                        </div>
+                                        <div id="BordereauDetailFormBox">
+                                            <form id="BordereauDetailForm" class="pform form-horizontal">
+                                                {% crispy bordereau_detail_form %}
+                                                <div class="buttonHolder text-center mb-5"> 
+                                                    <button type="button" id="add_detail" class="btn btn-success px-5">Ajouter Detail</button>
+                                                </div>
+                                                <button id="goToBordereau" class="btn btn-primary float-left">Precedent</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-7 col-xl-7">
+                                    <div class="">
+                                        <div class="">
+                                            <table class="table table-sm">
+                                                <tr>
+                                                    <td width="40%">Bordereau</td> 
+                                                    <td>: <span id="id_numero_text"></span> <span id="id_date_text"></span> <span id="id_date_reception_text"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Poste Comptable</td> 
+                                                    <td>: <span id="id_poste_comptable_text"></span> </td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Deposant</td> 
+                                                    <td>: <span id="id_deposant_text"></span> </td>
+                                                </tr>
+                                            </table>
+                                            <table class="table table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-left" style="width:15%;">Nature</th>
+                                                        <th class="text-left" style="width:25%;">Compte</th>
+                                                        <th class="text-left" style="width:30%;">Cheque</th>
+                                                        <th class="text-right">Montant</th>
+                                                        <th class="text-center" style="width:10%;" class="text-right"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="detail_table_body">
+                                                    
+                                                </tbody>
+                                            </table>
+                                            <div class="buttonHolder text-center my-5"> 
+                                                <button type="button" id="validate_bordereau" class="btn btn-success px-5">Enregistrer</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card  m-2">
+            <div class="card-body">
+                <a  href="{% url 'etat_journalier' %}?type=cheques" class="btn btn-primary btn-print px-5 my-3 mx-3 right">Situation journalière</a>
+            
+                <div id="tableauQuitance" hx-get="{% url 'ajax_htmx' %}?last_quitances=cheques" hx-trigger="load">
+                    <img  alt="Result loading..." class="htmx-indicator" width="150" src="/img/bars.svg"/>
+                </div>
+                {% comment %} <input type="text" name="search_versante"
+                    hx-get="{% url 'ajax_htmx' %}"
+                    hx-trigger="keyup changed delay:500ms"
+                    hx-target="#search-results"
+                    placeholder="Search..."
+                >
+                <div id="search-results"></div> {% endcomment %}
+                
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+
+{% block extra_js %}
+<script src="{% static 'quitance/assets/lib/jquery-validation/jquery.validate.min.js' %}"></script>
+<script src="{% static "default_theme/plugins/select2/js/select2.min.js" %}"></script>  
+
+<script>
+    
+    $(document).ready(function() {
+  
+        var bordereauForm = $("#BordereauForm");
+        var bordereauDetailForm = $("#BordereauDetailForm");
+        
+
+        $('#id_numero').on('keyup', function(e){
+            $('#id_numero_text').html("<b>Nº "+$(this).val()+"</b> ");
+            $('#id_date_text').html("du <b>"+$('#id_date').val()+"</b> ");
+            $('#id_date_reception_text').html("reçu le <b>"+$('#id_date_reception').val()+"</b> ");
+        })
+
+        $("#id_date").daterangepicker({
+            locale: {
+                format: 'DD-MM-YYYY'
+            },
+            singleDatePicker: true,
+            showDropdowns: true,
+            minYear: 1901,
+            maxDate: new Date().toLocaleDateString(),
+            maxYear: parseInt(moment().format('YYYY'),10)   
+        });
+
+        $("#id_date_reception").daterangepicker({
+            locale: {
+                format: 'DD-MM-YYYY'
+            },
+            singleDatePicker: true,
+            showDropdowns: true,
+            minYear: 1901,
+            minDate: new Date().toLocaleDateString(),
+            maxDate: new Date().toLocaleDateString(),
+            maxYear: parseInt(moment().format('YYYY'),10)   
+        });
+
+        $('#id_date').on('change', function(e){
+            $('#id_date_text').html("du <b>"+$(this).val()+"</b> ");
+            $("#id_date_reception").attr('disabled', false)
+            $("#id_date_reception").daterangepicker({
+                locale: {
+                    format: 'DD-MM-YYYY'
+                },
+                singleDatePicker: true,
+                showDropdowns: true,
+                minYear: 1901,
+                minDate: $(this).val(),
+                maxDate: new Date().toLocaleDateString(),
+                maxYear: parseInt(moment().format('YYYY'),10)   
+            });
+        })
+
+        $('#id_date_reception').on('change', function(e){
+            $('#id_date_reception_text').html("reçu le <b>"+$(this).val()+"</b> ");
+        })
+
+        $('#id_deposant').on('keyup', function(e){
+            $('#'+e.target.id+'_text').html($(this).val());
+        })
+
+        $("#goToDetail, #step_2").on('click', function(ev){
+            if(bordereauForm.valid()){
+                bordereauForm.parent().hide()
+                bordereauDetailForm.parent().show()
+                $("#step_1").removeClass('active').addClass('done')
+                $("#step_2").addClass('active')
+            }else{
+                $("#step_1").removeClass('done').addClass('active')
+                $("#step_2").removeClass('done').removeClass('active')
+            }
+        })
+
+        $("#goToBordereau, #step_1").on('click', function(ev){
+            bordereauForm.parent().show()
+            bordereauDetailForm.parent().hide()
+        })
+      
+      
+        setTimeout(function(){
+            $('#div_id_poste_comptable').html("<select class='form-select' id='id_poste_comptable' name='poste_comptable' class='form-control'></select><label for='id_poste_comptable' > Poste Comptable</label>") 
+            $('#select2-id_poste_comptable-container').html('');
+            bordereauForm.validate({
+                rules: {
+                numero: {
+                        required: true,
+                    },
+                    poste_comptable: {
+                        required: true
+                    },
+                    date: {
+                        required: true
+                    },
+                    date_reception: {
+                        required: true
+                    },
+                    nom_prenom: {
+                        required: true
+                    },
+                },
+                submitHandler: function (form) {
+                    
+                    console.log("yessssssssss")
+                }
+            });
+        }, 50)
+  
+  
+        $("#loading").hide();
+        $("#page_block").show();
+    
+        jQuery.validator.setDefaults({
+            debug: true,
+            success: "valid"
+        });
+
+  
+        pick_postecomptable = function () {
+            var formatRepo = function formatRepo(repo) {
+                return repo.text;
+            };
+
+            var formatRepoSelection = function formatRepoSelection(repo) {
+                if(repo.id){
+                    $('#id_poste_comptable_text').html(repo.text);
+                }else{
+                    $('#id_poste_comptable_text').html("");
+                }
+                
+                return repo.text;
+            };
+
+            $('#id_poste_comptable').select2({
+                placeholder: 'Choisir',
+                allowClear: true,
+                dropdownParent: bordereauForm,
+                width: '100%',
+                height: 200,
+                ajax: {
+                    url: "{% url 'ajax_htmx' %}",
+                    dataType: 'json',
+                    delay: 250,
+                    pagination: {
+                        more: true
+                    },
+                    data: function data(params) {
+                        return {
+                            search_comptable : params.term, // search term
+                            page: params.page
+                        };
+                    },
+                    processResults: function processResults(data, params) {
+                        params.page = params.page || 1;
+                        
+                        return {
+                            results: data,
+                            pagination: {
+                                more: params.page * 10 < data.count
+                            }
+                        };
+                    },
+                    cache: true
+                },
+                escapeMarkup: function escapeMarkup(markup) {
+                    return markup;
+                },
+                minimumInputLength: 2,
+                templateResult: formatRepo,
+                templateSelection: formatRepoSelection
+            });
+        }
+
+        setTimeout(function(){
+            pick_postecomptable();
+            $('#id_poste_comptable').on('select2:unselect', function (e) {
+            });
+        }, 100) 
+  
+    });
+  </script>
+
+
+
+<script>
+    
+    $(document).ready(function() {
+        var bordereauForm = $("#BordereauForm");
+        var bordereauDetailForm = $("#BordereauDetailForm");
+        var bordereauDetailDatas = [];
+
+        bordereauDetailForm.parent().hide();
+        $('#validate_bordereau').hide()
+
+        $("#BordereauDetailForm #div_id_nature").parent().removeClass('col-md-12').addClass("col-md-6")
+        $("#BordereauDetailForm #div_id_compte").parent().removeClass('col-md-12').addClass("col-md-6")
+        $("#BordereauDetailForm #div_id_montant").parent().removeClass('col-md-12').addClass("col-md-6")
+        $("#BordereauDetailForm #div_id_num_cheque").parent().removeClass('col-md-12').addClass("col-md-6")
+        $("#BordereauDetailForm #div_id_banque").parent().removeClass('col-md-12').addClass("col-md-6")
+        $("#BordereauDetailForm #div_id_date_cheque").parent().removeClass('col-md-12').addClass("col-md-6")
+
+        setTimeout(function(){
+            $('#div_id_compte').html("<select class='form-select' id='id_compte' name='compte' class='form-control'></select><label for='id_compte' > Compte</label>") 
+            $('#select2-id_compte-container').html('');
+            $('#nature_cheque').select2(
+                {
+                    placeholder: 'Choisir',
+                    allowClear: true,
+                    dropdownParent: bordereauDetailForm,
+                    width: '100%',
+                    height: 200
+                }
+            );
+            bordereauDetailForm.validate({
+                rules: {
+                montant: {
+                        required: true,
+                    },
+                    nature: {
+                        required: true
+                    },
+                    compte: {
+                        required: true
+                    },
+                    num_cheque: {
+                        required: true
+                    },
+                    banque: {
+                        required: true
+                    },
+                    date_cheque: {
+                        required: true
+                    }
+                },
+                submitHandler: function (form) {
+                    console.log("yessssssssss")
+                }
+            });
+        }, 50)
+        
+    
+        updateDetailtableau = function(){
+            $('#detail_table_body').html("");
+            bordereauDetailDatas.forEach(function(val, index){
+                data = "<tr>";
+                data += "<td class='text-left'>"+val.nature.libele+"</td>";
+                data += "<td class='text-left'>"+val.compte.libele+"</td>";
+                data += "<td class='text-left'>Nº "+val.numero+"/"+val.banque+" du "+val.date+"</td>";
+                data += "<td class='text-right'>"+val.montant+"</td>";
+                data += "<td class='text-right'><button onclick='removeDetail("+index+")' class='btn btn-danger'><i class='fas fa-times'></i></button></td>";
+                data += "</tr>";
+                $('#detail_table_body').append(data);
+            })
+
+            if(bordereauDetailDatas.length > 0){
+                $('#validate_bordereau').show()
+            }else{
+                $('#validate_bordereau').hide()
+            }
+        }
+
+        removeDetail = function(index){
+            bordereauDetailDatas.splice(index,1);
+            updateDetailtableau();
+        }
+
+
+      $("#add_detail").on("click", function(e){
+        if(bordereauDetailForm.valid()){
+            data = {
+                'nature': {'id': $("#nature_cheque").val(), 'libele': $('#select2-nature_cheque-container').text().replace("×","")}, 
+                'compte': {'id': $("#id_compte").val(), 'libele': $('#select2-id_compte-container').text().replace("×","")}, 
+                'montant': $("#montant_cheque").val(),
+                'numero': $("#id_num_cheque").val(),
+                'banque': $("#id_banque").val(),
+                'date': "'"+$("#id_date_cheque").val()+"'",
+                'titulaire': $("#id_titulaire").val()
+            }
+            console.log(data)
+            bordereauDetailDatas.push(data)
+            console.log(bordereauDetailDatas)
+            bordereauDetailForm[0].reset();
+            $("#nature_cheque").val(0);
+            $("#nature_cheque").select2();
+            $("#id_compte").html('');
+            updateDetailtableau()
+        }
+      })
+  
+      
+        $("#validate_bordereau").on('click', function(e){
+            data = []
+            bordereauDetailDatas.forEach(function(val, index){
+                data.push(val.nature.id+","+val.compte.id+","+val.montant+","+val.numero+","+val.banque+","+val.date+","+val.titulaire)
+            })
+            serializedData = bordereauForm.serialize();
+            serializedData += "&data="+data.join(";")
+        
+           $.ajax({
+                type : 'POST',
+                url :  "{% url 'op_cheques' %}",
+                data : serializedData,
+                success : function(response){
+                    
+                    $("#step_2").removeClass('active').addClass('done')
+                    $("#step_3").addClass('done')
+                    var newWin = window.open("print_quitance/"+response.data.quitance,'printWindow','Toolbar=0,Location=0,Directories=0,Status=0,Menubar=0,Scrollbars=0,Resizable=0,width=740,height=400');
+            
+                    newWin.document.body.onload = function() { 
+                        if(newWin.closeWin == 'True'){
+                            newWin.close();
+                            htmx.ajax('GET', '{% url 'ajax_htmx' %}?last_quitances=cheques', {target:'#tableauQuitance'})
+                        }else{
+                            newWin.print(); 
+                            newWin.onafterprint = function(){
+                                newWin.close();
+                                htmx.ajax('GET', '{% url 'ajax_htmx' %}?last_quitances=cheques', {target:'#tableauQuitance'});
+
+                                $("input, select").attr("disabled", false)
+                                $("#loading").hide();
+                                $("#select2-id_poste_comptable-container").html("");
+                                $("#id_poste_comptable").val(0);
+                                bordereauDetailDatas = [];
+                                updateDetailtableau();
+                                $("#goToBordereau").click();
+                                $('#id_date, #id_date_reception').val(new Date().toLocaleDateString());
+                                $("#id_date").daterangepicker({
+                                    locale: {
+                                        format: 'DD-MM-YYYY'
+                                    },
+                                    singleDatePicker: true,
+                                    showDropdowns: true,
+                                    minYear: 1901,
+                                    maxDate: new Date().toLocaleDateString(),
+                                    maxYear: parseInt(moment().format('YYYY'),10)   
+                                });
+
+                                $("#id_date_reception").daterangepicker({
+                                    locale: {
+                                        format: 'DD-MM-YYYY'
+                                    },
+                                    singleDatePicker: true,
+                                    showDropdowns: true,
+                                    minYear: 1901,
+                                    minDate: new Date().toLocaleDateString(),
+                                    maxDate: new Date().toLocaleDateString(),
+                                    maxYear: parseInt(moment().format('YYYY'),10)   
+                                });
+                                $("#step_1").removeClass('done').addClass('active')
+                                $("#step_2").removeClass('done').removeClass('active')
+                                $("#step_3").removeClass('done').removeClass('active')
+                                $('#BordereauForm')[0].reset();
+                                $("#id_poste_comptable").val(0);
+                                
+                                $('#id_poste_comptable').val(0);
+                                $('#id_numero_text, #id_date_text, #id_date_reception_text, #id_poste_comptable_text, #id_deposant_text').html("");
+                            }
+                        }
+                        
+                    }
+                    
+                    console.log("donnnnnnnne")
+                    
+                },
+                error : function(response){
+                    $("input, select").attr("disabled", false)
+                    $("#loading").hide();
+                    console.log(response.responseJSON);
+                    var obj = response.responseJSON["form"];
+                    Object.keys(obj).forEach((key) => {
+                        err = obj[key]
+                        var index = 1
+                        console.log($("#id_"+key).parent())
+                        err.forEach((item) => {
+                            console.log(key, index, '<span id="id_'+key+'-error" class="invalid-feedback">'+item+'</span>')
+
+                            $("#id_"+key).addClass("is-invalid")
+
+                            if($("#id_"+key+"-error").length > 0){
+                                $("#id_"+key+"-error")[0].outerHTML = "";
+                            }
+                
+                            if($("#id_"+index+key+"-error").length > 0){
+                                $("#id_"+index+key+"-error").outerHTML('<label id="id_'+index+key+'-error" for="'+key+'-error" class="error invalid-feedback">'+item+'</label>')
+                            }else{
+                                $("#id_"+key).parent().append('<label id="id_'+key+'-error" for="'+key+'-error" class="error invalid-feedback">'+item+'</label>')
+                            }
+                            index++
+                        })
+                        
+                    });
+                }
+            });
+        })
+  
+      pick_compte = function () {
+        var formatRepo = function formatRepo(repo) {
+            return repo.text;
+        };
+
+        var formatRepoSelection = function formatRepoSelection(repo) {
+            return repo.text;
+        };
+
+        $('#id_compte').select2({
+            placeholder: 'Choisir',
+            allowClear: true,
+            dropdownParent: bordereauDetailForm,
+            width: '100%',
+            height: 200,
+            ajax: {
+                url: "{% url 'ajax_htmx' %}",
+                dataType: 'json',
+                delay: 250,
+                pagination: {
+                    more: true
+                },
+                data: function data(params) {
+                    return {
+                        search_compte : params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function processResults(data, params) {
+                    params.page = params.page || 1;
+                    
+                    return {
+                        results: data,
+                        pagination: {
+                            more: params.page * 10 < data.count
+                        }
+                    };
+                },
+                cache: true
+            },
+            escapeMarkup: function escapeMarkup(markup) {
+                return markup;
+            },
+            minimumInputLength: 2,
+            templateResult: formatRepo,
+            templateSelection: formatRepoSelection
+        });
+    }
+
+    setTimeout(function(){
+        pick_compte();
+    }, 100) 
+  
+    });
+  </script>
+{% endblock extra_js %}

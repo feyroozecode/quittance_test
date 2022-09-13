@@ -1,0 +1,413 @@
+
+@media print{
+    @page {size: A3 landscape}
+    .hideprint {
+        display: none
+    }
+}
+
+.pese_3, .pese_4{
+    text-decoration-line: line-through;
+    text-decoration-style: wavy;
+    -webkit-text-emphasis: sesame;
+}
+
+.left_bracket .r1 .teambox_a, .left_bracket .r1 .teambox_b {
+   left: 0% !important;
+}
+
+.left_bracket .teama, .left_bracket .teamb{
+   float: left;
+   padding: 0;
+   font-size: 11px;
+   max-height: 15px;
+   overflow: hidden;
+   max-width: 200px;
+   inline-size: -webkit-fill-available;
+}
+
+.left_bracket .r1 .p1 .bracketbox {
+   border-top: 1px solid #f00 !important;
+   border-right: 1px solid #e60000 !important;
+   border-bottom: 1px solid #f00 !important;
+}
+
+.bracketbox span.score.editable {
+   float: right;
+   padding: 3px;
+   background-color: rgba(255,255,255,.3);
+   text-align: center;
+   box-sizing: border-box;
+}
+
+.bracketbox.finale, .right_bracket.brackets div.bracketbox.finale {
+   border-right: 0px solid #555 !important;
+   border-bottom: 0px solid #555 !important;
+   border-left: 0px solid #555 !important;
+}
+
+
+.right_bracket .finale span.info {    
+   top: -2% !important;
+   left: -55px !important;
+   width: 42px;
+   border: 2px solid blue;
+   text-align: center;
+   font-size: 16px !important;
+   position: absolute;
+
+}
+
+.right_bracket  span.winner {
+   top: -180px !important;
+   left: -135px !important;
+   width: 232px;
+   text-align: center;
+   font-size: 16px !important;
+}
+
+.left_bracket  span.winner, .left_bracket .finale span.info {
+   display: none
+}
+
+
+
+  
+
+.left_bracket .info_b{
+   left: -8% !important;
+}
+
+.left_bracket .info_a{
+   left: -8% !important;
+}
+
+.right_bracket .bye i.fas.fa-edit {
+   float: left
+}
+
+.left_bracket .bye i.fas.fa-edit {
+   float: right;
+}
+   
+
+   
+
+
+
+
+
+
+   .right_bracket .r1 .teambox_a, .right_bracket .r1 .teambox_b {
+       right: 0% !important;
+   }
+
+   .right_bracket .teama, .right_bracket .teamb{
+       float: right;
+       padding: 0;
+       font-size: 11px;
+       max-height: 15px;
+       overflow: hidden;
+       max-width: 200px;
+       text-align: right;
+       inline-size: -webkit-fill-available;
+       
+   }
+
+   .right_bracket.brackets div.bracketbox {
+       border-left: 1px solid #555 !important;
+       border-right: 0px solid #555 !important;
+   }
+
+   .brackets.right_bracket > div > div {
+       float: right !important;
+       height: 100%;
+   }
+   
+   .right_bracket .teambox_a{
+       right: 0%;
+   }
+
+   .right_bracket .teambox_b{
+       right: 0%;
+   }
+   
+
+   .right_bracket .teambox_b{
+       right: 0%;
+   }
+
+    .right_bracket .info{
+       left: 4px !important;
+   }
+   .club_box {
+       font-size: 8px;
+       width: 88px;
+       overflow: hidden;
+       max-height: 11px;
+       font-weight: bold;
+   }
+
+   .right_bracket .club_box{
+       float: right;
+       text-align: right;
+   }
+
+
+   .teama{
+       color: blue;
+       font-weight: bold;
+   }
+
+   .teamb{
+       color: red;
+       font-weight: bold;
+   }
+
+   
+
+
+  
+   
+       html, body, .brackets {
+           width: 100%;
+           min-height: 100%;
+           font-family: "Arial", sans-serif;
+       }
+       .metroBtn {
+           background-color: #2E7BCC;
+           color: #fff;
+           font-size: 1.1em;
+           padding: 10px;
+           display: inline-block;
+           margin-bottom: 30px;
+           cursor: pointer;
+           margin-top: 20px;       
+       }
+       .brackets > div {
+           vertical-align: top;
+           clear: both;
+       }
+       .brackets > div > div {
+           float: left;
+           height: 100%;
+       }
+       .brackets > div > div > div {
+           margin: 50px 0;
+       }
+       .brackets div.bracketbox {
+           position: relative;
+           width: 100%; height: 100%;
+           border-top: 1px solid #555;
+           border-right: 1px solid #555;
+           border-bottom: 1px solid #555;
+       }
+
+       .brackets div.bracketbox > span.info {
+           top: 33%;
+           width: 40px;
+           border: 1px solid;
+           text-align: center;
+           right: 4px;
+           background: #fff;
+           z-index: 1;
+       }
+
+       .brackets div.bracketbox > span {
+           position: absolute;
+           font-size: 0.85em;
+       }
+       .brackets div.bracketbox > span.teama {
+           top: -20px;
+       }
+       .brackets div.bracketbox > span.teamb {
+           bottom: -20px;
+       }
+       .brackets div.bracketbox > span.teamc {
+           bottom: 1px;
+       }
+       .brackets > .group2 {
+           height: 260px;
+       }
+       .brackets > .group2 > div {
+           width: 49%;
+       }
+       .brackets > .group3 {
+           height: 320px;
+       }
+       .brackets > .group3 > div {
+           width: 32.7%;
+       }
+       .brackets > .group4 > div {
+           width: 24.5%;
+       }
+       .brackets > .group5 > div {
+           width: 19.6%;
+       }
+       .brackets > .group6 {
+           height: 2000px;
+       }
+       .brackets > .group6 > div {
+           width: 16.3%;
+       }
+       .brackets > div > .r1 > div {
+           height: 60px;
+       }
+       .brackets > div > .r2 > div {
+           margin: 80px 0 110px 0;
+           height: 110px;
+       }
+       .brackets > div > .r3 > div {
+           margin: 135px 0 220px 0;
+           height: 220px;
+       }
+       .brackets > div > .r4 > div {
+           margin: 250px 0 445px 0;
+           height: 445px;
+       }
+       .brackets > div > .r5 > div {
+           margin: 460px 0 0 0;
+           height: 900px;
+       }
+       .brackets > div > .r6 > div {
+           margin: 900px 0 0 0;
+       }
+       .brackets div.finale > div.bracketbox {
+           border-top: 0px;
+           border-right: 0px;
+           height: 0px;
+       }
+       .brackets > div > .r4 > div.drop {
+           height: 180px;
+           margin-bottom: 0px;
+       }
+       .brackets > div > .r5 > div.finale.drop {
+           margin-top: 345px;
+           margin-bottom: 0px;
+           height: 1px;
+       }
+
+       .brackets > div > div > div:last-of-type {
+           margin-bottom: 0px;
+       }
+
+       .teambox_a {
+           top: -12px;
+           position: absolute;
+           width: 180px;
+       }
+
+       .teambox_b {
+           position: absolute;
+           bottom: -11px;   
+           width: 180px;       
+       }
+
+       .r1 .teambox_b {
+           bottom: -11px !important;
+       }
+
+
+       .r2 span.info {
+           top: 41% !important;
+       }
+
+       .r3 span.info {
+           top: 48% !important;
+       }
+       .r4 span.info {
+           top: 45% !important;
+       }
+
+
+       
+
+       .r3 span.info_b {
+           bottom: -5% !important;
+       }
+
+       .r4 span.info_b {
+           bottom: -2% !important;
+       }
+
+       .r5 span.info_b {
+           bottom: -1% !important;
+       }
+
+       .right_bracket span.info a {
+           right: 60px;
+           position: absolute;
+       }
+
+       .left_bracket span.info a {
+           left: 60px;
+           position: absolute;
+       }
+
+       .finale .info{
+           width: 52px !important;
+       }
+
+       td div {
+           max-height: unset !important;
+           overflow: visible !important;
+       }
+       td{
+           text-align: center;
+       }
+
+       
+
+       /* .teambox_a{
+           position: absolute;
+           width: 150px;
+           top: -15px;
+           background-color: #ccc;
+           color: #000;
+           vertical-align: middle;
+       }
+       
+
+       .teambox_b{
+           position: absolute;
+           width: 150px;
+           bottom: -15px;
+           background-color: #ccc;
+           color: #000;
+           vertical-align: middle;
+       }  */
+
+
+       /* .left_bracket .bracketbox.finale {
+        border: 1px solid #000 !important;
+        border-right: 0px !important;
+    }
+
+    .right_bracket .bracketbox.finale {
+        border: 1px solid #000 !important;
+        border-left: 0px !important;
+        border-right: 1px !important;
+    } */
+
+/* 
+G-45KG ---> 30 athletes
+G-58KG ---> 28 athletes
+G-51KG ---> 19 athletes
+G-30KG ---> 13 Athletes
+G-41KG ---> 11 athletes
+G+80KG ---> 7 athletes
+G-30KG ---> 13
+G-37Kg ---> 21
+G-33kg ---> 37
+G-48kg ---> 15
+-54kg
+
+
+F-27kg ---> 41
+F-57KG ---> 10 athletes
+F-37KG ---> 6 athletes
+F-26KG ---> 5 athletes
+F-33KG ---> 4 athletes
+F+57KG ---> 4 athletes
+F-41kg ---> 12
+F-46kg ---> 12 */
