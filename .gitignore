@@ -1,5 +1,6 @@
 *.sqlite3
 venv
+.env
 *.pyc
 *.DS_Store
 db.sqlite3
