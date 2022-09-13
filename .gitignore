@@ -1,5 +1,4 @@
 *.sqlite3
-.env
 venv
 *.pyc
 *.DS_Store
